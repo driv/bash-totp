@@ -14,7 +14,11 @@ help() {
 # Before we get the token, direct fd3 to stdout and redirect stdout to stderr.
 exec 3>&1 1>&2
 
-TOTP_SECRET=$1
+if (( $# == 0 )) ; then
+  TOTP_SECRET=$(</dev/stdin)
+else
+  TOTP_SECRET=$1
+fi
 TOTP_SERVER=${2:-Google}
 TOTP_INTERVAL=${3:-30}
 
